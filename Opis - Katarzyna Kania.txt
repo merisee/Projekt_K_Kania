@@ -1,0 +1,38 @@
+// utworzenie danych i ich wartoœci: k¹t 0, zmienna clockwise ustawiona na wartoœæ true, krok zmiany k¹ta na 1
+int angle = 0; 
+boolean clockwise = true;
+int angleStep = 1;
+// metoda setup ustawia wiielkoœæ okna na 500x500 i centruje jego zawartoœæ, ilosc klatek na sekunde ustawione na 144 ¿eby szybciej siê obraca³
+// a to tworzone jest w pentli ca³y czas
+void setup() {
+  size(500,500);
+  rectMode(CENTER);
+  frameRate(144);
+  loop();
+}
+//metoda draw ustawia t³o okna na bia³e (255) i jeœli clocwise jest (czyli true) to k¹t zmienia siê w krokach w prawo jeœli wartoœæ jest false to w odwrotnym kierunku
+void draw() {
+  background(255);
+  smooth();
+  if(clockwise) {
+    angle += angleStep; }
+  else {
+    angle -= angleStep;
+    }
+  translate(width/2, height/2);
+  rotate(radians(angle));
+// jeœli kwadrat siê obróci siê o 360 stopni to zmienna clokwise zmieni wartoœæ na false a to spowoduje obrót w drugim kierunku a¿ osi¹gnie k¹t 0
+  if (angle == 360) {
+    clockwise = false;
+  } else if (angle == 0){
+    clockwise = true;
+  }
+  
+  display(angle);
+}
+// metoda wyœwietla kwadrat 250 na 250 zaczepiony w punkcie  0 wylicza i wyœwietla kolor kwadratu c
+void display(int angle) {
+  color c = color(angle*255/360, 255-angle*255/360, 128-angle*255/720);
+  fill(c);
+  rect(0,0,250,250);
+}
